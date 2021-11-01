@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    Vue.createApp({
+        template: `
+        <div>
+            <input v-model="inputVal">
+            <button @click='handlerClick'>增加</button>
+            <ul>
+                <li v-for="(item, index) of list">{{ item }} {{ index }}</li>
+            </ul>
+        </div>
+        `,
+        data() {
+            return {
+                list: [],
+                inputVal: ''
+                // 'hello', 'world', 'guantao', 'huang'
+            }
+        },
+        methods: {
+            handlerClick() {
+                this.list.push(this.inputVal)
+                this.inputVal = ''
+            }
+        }
+
+    }).mount('#root')
+</script>
+
+</html>

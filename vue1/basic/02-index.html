@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    Vue.createApp({
+        template: `
+        <div>
+            <div v-show="flag"> {{ content }} </div>
+            <button v-on:click="clickHandler">反转</button> 
+        </div>
+        `,
+        data() {
+            return {
+                content: 'hello world',
+                flag: true
+            }
+        },
+        methods: {
+            clickHandler() {
+                const newContent = this.content.split('').reverse().join('')
+                this.content = newContent
+                this.flag = !this.flag
+            }
+        }
+    }).mount('#root')
+</script>
+
+</html>

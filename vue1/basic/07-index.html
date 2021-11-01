@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<style>
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
+    }
+</style>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                styleStr: 'red',
+                classObj: {
+                    red: true,
+                    green: true
+                },
+                classArr: ['red', 'green', { gray: false }]
+            }
+        },
+        template: `<div :class="classObj">hello world <demo /></div>`
+    })
+
+    app.component('demo', {
+        template: `<div class="red">demo</div>`
+    })
+
+    const vm = app.mount('#root')
+</script>
+
+</html>

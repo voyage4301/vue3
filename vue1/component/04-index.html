@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                content: 123,
+            }
+        },
+        template: `
+        <Demo :content="content" @handle-click="handleClick"/>
+       `,
+        methods: {
+            handleClick(params) {
+                this.content += params
+            }
+        }
+    })
+
+    app.component('Demo', {
+        props: ['content'],
+        emits: ['handleClick'],
+        // emits: {
+        //     handleClick(count) {
+        //         if (count > 0) {
+        //             return true
+        //         }
+        //         return false
+        //     }
+        // },
+        template: `
+            <div>
+                <p>{{ content }}</p>
+                <button @click="add">count++</button>    
+            </div>
+            
+            
+        `,
+        methods: {
+            add() {
+                this.$emit('handleClick', 2)
+            }
+        }
+    })
+
+    const vm = app.mount('#root')
+</script>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    /* true-value false-value */
+
+    /* v-model 修饰符 */
+    /* 
+        lazy
+        number
+        trim
+    */
+    const app = Vue.createApp({
+        data() {
+            return {
+                text: "对",
+                msg: ''
+            }
+        },
+        template: `
+            {{ text }}
+            <input type="checkbox" v-model="text" true-value="对" false-value="错"><br>
+            {{ msg }}
+            <input v-model.lazy="msg"><br>
+            {{ typeof msg }}
+            <input v-model.number="msg" type="number"><br>
+            {{ msg }}
+            <input v-model.trim="msg">
+        `
+    })
+
+    const vm = app.mount('#root')
+</script>
+
+</html>

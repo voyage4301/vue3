@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // message: 'hello world'
+                listArray: ['a', 'b', 'c'],
+                listObj: {
+                    firstName: 'jack',
+                    lastName: 'jones',
+                    fullName: 'jack jones'
+                }
+            }
+        },
+        template: `
+        <div>
+            <div v-for="(item, index) in listArray" :key="index">{{ item }} {{ index }}</div> 
+            <div v-for="(item, key, index) in listObj" :key="key\">{{ item }}  {{ key }} {{ index }}</div>   
+        </div>
+        
+        `
+    })
+
+    const vm = app.mount('#root')
+</script>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes leftToRigint {
+            0% {
+                transform: translateX(-100px);
+            }
+
+            50% {
+                transform: translateX(-50px);
+            }
+
+            100% {
+                transform: translateX(0px);
+            }
+        }
+
+        .animation {
+            animation: leftToRigint 3s;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    /* 过渡 & 动画 */
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: 'hello world',
+                animate: {
+                    animation: true
+                }
+            }
+        },
+        template: `
+            <div>
+                <div :class="animate">{{ message }}</div>
+                <button @click="handleClick">切换</button>    
+            </div>
+        `,
+        methods: {
+            handleClick() {
+                this.animate.animation = !this.animate.animation
+            }
+        }
+    })
+
+    const vm = app.mount('#root')
+</script>
+
+</html>

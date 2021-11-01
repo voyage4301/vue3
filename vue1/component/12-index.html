@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    /* 基础知识 */
+    /* v-once 让某个标签只渲染一次 后面数据变化 页面也不会更新 */
+    /* ref 获取dom节点或者组件引用的语法 */
+    /* provide / inject */
+    const app = Vue.createApp({
+        data() {
+            return {
+                num: 0,
+                count: 1
+            }
+        },
+        // provide: { //无法使用data中的数据
+        //     count: this.count
+        // },
+        provide() { // 非响应式 vue3新的api可以解决
+            return {
+                count: this.count
+            }
+        },
+        //     template: `
+        //         <div @click="num += 1" v-once >
+        //             {{ num }}
+        //         </div>
+        //    `,
+        template: `
+            <div>
+                <div ref="num" >
+                    {{ num }}
+                </div>
+                <common-item ref="common" />
+                <button @click="handleClick">触发子组件方法</button>
+                <child :count="count"/>
+                <button @click="count += 1">测试provide/inject</button>
+            </div>
+       `,
+        mounted() {
+            console.log(this.$refs.num);
+            console.log(this.$refs.common);
+        },
+        methods: {
+            handleClick() {
+                this.$refs.common.sayHi()
+            }
+        }
+    })
+    app.component('common-item', {
+        template: `
+            <div>hello world</div>
+        `,
+        methods: {
+            sayHi() {
+                alert('Hi!')
+            }
+        }
+    })
+    app.component('child', {
+        template: `
+            <child-child />
+        `,
+    })
+    app.component('child-child', {
+        inject: ['count'],
+        template: `
+            <div>{{ count }}</div>
+        `,
+    })
+
+
+    const vm = app.mount('#root')
+</script>
+
+</html>

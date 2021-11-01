@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    /* modelValue update:modelValue 是固定写法 */
+    /* 如果不想用固定名称 使用v-model:名称="值" */
+    const app = Vue.createApp({
+        data() {
+            return {
+                content: 123,
+                content1: 123,
+            }
+        },
+        template: `
+        <Demo v-model:content="content" v-model:content1="content1"/>
+       `,
+    })
+
+    app.component('Demo', {
+        props: ['content', 'content1'],
+        template: `
+            <div>
+                <p>{{ content }}</p>
+                <p>{{ content1 }}</p>
+                <button @click="add">count++</button>    
+                <button @click="add1">count1++</button>    
+            </div>
+            
+            
+        `,
+        methods: {
+            add() {
+                this.$emit('update:content', this.content + 2)
+            },
+            add1() {
+                this.$emit('update:content1', this.content1 + 2)
+            }
+        }
+    })
+
+    const vm = app.mount('#root')
+</script>
+
+</html>

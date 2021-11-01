@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    /* slot 插槽  */
+    /* 
+        插槽基础
+        插槽默认值
+    
+    */
+    const app = Vue.createApp({
+        data() {
+            return {
+                content: 'a',
+                text: '提交'
+            }
+        },
+        template: `
+            <Form>
+                <div>{{ text }}</div>    
+            </Form>
+            <Form>
+                <button>提交</button>  
+            </Form>
+            <Form></Form>
+       `,
+    })
+
+    app.component('Form', {
+        props: {},
+        template: `
+            <div>
+                <input />
+                <span @click="handleClick">
+                    <slot>default value</slot>    
+                </span>    
+            </div>
+        `,
+        methods: {
+            handleClick() {
+                alert('123')
+            }
+        }
+    })
+
+    const vm = app.mount('#root')
+</script>
+
+</html>

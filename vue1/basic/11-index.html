@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    /* 
+        input string
+        textarea string
+        checkbox boolean|array
+        radio string
+        select string|array
+    */
+    const app = Vue.createApp({
+        data() {
+            return {
+                text: [],
+                optionList: [
+                    {text: 'A', value: 'A'},
+                    {text: 'B', value: 'B'},
+                    {text: 'C', value: 'C'},
+                    {text: 'D', value: 'D'},
+                ]
+            }
+        },
+        template: `
+            {{ text }}
+            <select v-model="text" multiple>
+                <option v-for="item in optionList" :value="item.value" :key="item.value">{{ item.text }}</option>
+            </select>
+
+                
+        `
+    })
+
+    const vm = app.mount('#root')
+</script>
+
+</html>

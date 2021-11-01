@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    /* modelValue update:modelValue 是固定写法 */
+    /* 如果不想用固定名称 使用v-model:名称="值" */
+
+    /* modelModifiers可以接收v-model的修饰符  */
+    const app = Vue.createApp({
+        data() {
+            return {
+                content: 'a',
+            }
+        },
+        template: `
+        <Demo v-model.uppercase="content"/>
+       `,
+    })
+
+    app.component('Demo', {
+        props: {
+            modelValue: String,
+            modelModifiers: {
+                default: () => ({})
+            }
+        },
+        mounted() {
+            console.log(this.modelModifiers);
+        },
+        template: `
+            <div>
+                <p>{{ modelValue }}</p>
+                <button @click="add">count++</button>    
+            </div>
+            
+            
+        `,
+        methods: {
+            add() {
+                let newValue = this.modelValue + 'b'
+                if (this.modelModifiers.uppercase) {
+                    newValue = newValue.toUpperCase()
+                }
+                this.$emit('update:modelValue', newValue)
+            }
+        }
+    })
+
+    const vm = app.mount('#root')
+</script>
+
+</html>

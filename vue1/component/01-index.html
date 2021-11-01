@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                content: 123
+            }
+        },
+        template: `
+        <Demo :content="content" />
+       `
+    })
+
+    app.component('Demo', {
+        /* type required default validator*/
+        props: {
+            content: {
+                type: Number,
+                required: true,
+                default: 'test',
+                validator(val) {
+                    return val < 1000
+                }
+            }
+        },
+        template: `
+            <div>{{ content }}</div>
+        `
+    })
+
+    const vm = app.mount('#root')
+</script>
+
+</html>
